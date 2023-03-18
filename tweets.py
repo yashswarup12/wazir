@@ -14,8 +14,7 @@ auth.set_access_token(access_token, access_token_secret)
 # Create API object
 api = tweepy.API(auth)
 
-# Search for tweets with the hashtag #hacking
-tweets = api.search(q='#hacking')
+tweets = api.search_tweets(q='#hacking', count=10)
 
 # Create a list of tweet dictionaries
 tweet_list = []
