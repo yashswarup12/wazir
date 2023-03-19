@@ -1,24 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Tweets with Hashtag #hacking</title>
-  </head>
-  <body>
-    <h1>Tweets with Hashtag #hacking</h1>
-    <ul id="tweet-list"></ul>
-    <script>
-      fetch("https://yashswarup12.github.io/wazir/tweets.py")
-        .then(response => response.json())
-        .then(data => {
-          const tweetList = document.getElementById("tweet-list");
-          data.forEach(tweet => {
-            const li = document.createElement("li");
-            const text = document.createTextNode(tweet.text + " - @" + tweet.user);
-            li.appendChild(text);
-            tweetList.appendChild(li);
-          });
-        })
-        .catch(error => console.error(error));
-    </script>
-  </body>
+<head>
+  <title>Twitter Search Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background-color: #f7f7f7;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #tweets {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      margin-top: 30px;
+    }
+    .tweet {
+      width: 500px;
+      margin: 10px;
+      padding: 10px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .tweet img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    .tweet p {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+    .tweet .username {
+      font-weight: bold;
+    }
+    .tweet .text {
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Twitter Search Example</h1>
+  <div id="tweets"></div>
+
+  <script>
+    // Replace with your own server URL
+    const serverUrl = 'https://detailed-diligent-bambiraptor.glitch.me';
+
+    // Make request to server to get tweets
+    $.get(`${serverUrl}/search?q=%23hacking&count=20&result_type=popular`, (data) => {
+      const tweets = data.statuses;
+      let html = '';
+
+      // Loop through tweets and generate HTML
+      for (let tweet of tweets) {
+        html += `
+          <div class="tweet">
+            <img src="${tweet.user.profile_image_url_https}">
+            <div>
+              <p class="username">${tweet.user.name}</p>
+              <p class="text">${tweet.text}</p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Add generated HTML to page
+      $('#tweets').html(html);
+    });
+  </script>
+</body>
 </html>
