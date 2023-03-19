@@ -61,7 +61,7 @@
     const serverUrl = 'https://detailed-diligent-bambiraptor.glitch.me';
 
     // Make request to server to get tweets
-    $.get(`${serverUrl}/search?q=%23hacking&count=20&result_type=popular`, (data) => {
+    $.get(`${serverUrl}/search?q=%23bugbounty%20-filter:retweets&count=100&result_type=latest`, (data) => {
       const tweets = data.statuses;
       let html = '';
 
@@ -72,6 +72,7 @@
             <img src="${tweet.user.profile_image_url_https}">
             <div>
               <p class="username">${tweet.user.name}</p>
+              <p><a href="https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}" target="_blank">View tweet</a></p>
               <p class="text">${tweet.text}</p>
             </div>
           </div>
